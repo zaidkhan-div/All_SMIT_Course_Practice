@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Student Registration Form</title>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Student Registration Form</h2>
+    <form action="#" >
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="text" id="dob" placeholder="DD/MM/YYYY" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number" required>
+      </div>
+
+      <div class="form-group">
+        <label for="qualification">Highest Qualification</label>
+        <input type="text" id="qualification" placeholder="e.g., Bachelor's Degree" required>
+      </div>
+
+      <div class="form-group">
+        <label for="institution">Name of Last Institution Attended</label>
+        <input type="text" id="institution" placeholder="Enter institution name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="graduationYear">Year of Graduation</label>
+        <input type="text" id="graduationYear" placeholder="Enter graduation year" required>
+      </div>
+
+      <div class="form-group">
+        <label for="program">Desired Program</label>
+        <select id="program" required>
+          <option value="">Select a program</option>
+          <option value="computerScience">Computer Science</option>
+          <option value="businessAdministration">Business Administration</option>
+          <option value="design">Design</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Additional Courses or Workshops</label>
+        <label class="checkbox-label">
+          <input type="checkbox"> Web Development
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox"> Data Science
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox"> Graphic Design
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Permanent Address</label>
+        <textarea id="address" placeholder="Enter your full address" rows="3" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" id="city" placeholder="Enter city name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="postalCode">Postal Code</label>
+        <input type="text" id="postalCode" placeholder="Enter postal code" required>
+      </div>
+
+      <button type="submit" class="submit-btn" >Submit</button>
+
+    </form>
+  </div>
+
+</body>
+</html>
