@@ -40,3 +40,32 @@ var date = new Date();
 date.setFullYear(2000)
 date.setMonth(0)
 console.log(date);
+
+
+let rightNow = new Date();
+// suppose if i wanna aplly some slice methods and more string methods
+// so rightNow.toString()
+
+var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+var theDay = rightNow.getDay();
+var nameOfToday = dayNames[theDay];
+console.log(nameOfToday);
+
+
+var doomsday = new Date("June 30, 2035");
+var msToday = rightNow.getTime();
+var msDoomsday = doomsday.getTime();
+var doomsday = new Date("June 30, 2035");
+var msDiff = msDoomsday - msToday;
+
+var dDiff = msDiff / (1000 * 60 * 60 * 24);
+dDiff=Math.floor(dDiff);
+console.log(dDiff);
+
+
+var d = new Date();
+d.setFullYear(2001);
+d.setDate(15);
+d.setHours(13);
+d.setMinutes(05);
+d.setSeconds(55);
