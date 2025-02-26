@@ -20,14 +20,14 @@ function notCompleteTask() {
 
 function doAsynTask() {
     let promise = new Promise((resolve, reject) => {
-        let succes = false;
+        let succes = true;
         setTimeout(() => {
             if (succes) {
-                // resolve('I love you!')
-                resolve(completeTask())
+                resolve('I love you!')
+                // resolve(completeTask())
             } else {
-                // reject('Something Went Wrong')
-                reject(notCompleteTask())
+                reject('Something Went Wrong')
+                // reject(notCompleteTask())
             }
         }, 1000);
     })
