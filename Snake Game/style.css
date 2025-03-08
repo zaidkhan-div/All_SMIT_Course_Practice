@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -29,4 +30,36 @@
     font-weight: bold;
     font-family: sans-serif;
     margin: 5px auto;
+}
+
+.board {
+    border: 10px solid #333333;
+    width: 400px;
+    height: 70vh;
+    border-radius: 10px;
+    background: linear-gradient(#c5f051, #fdfd78);
+    display: grid;
+    grid-template-rows: repeat(18, 1fr);
+    grid-template-columns: repeat(18, 1fr);
+}
+
+.head {
+    background: linear-gradient(rgb(240, 124, 124), rgb(228, 228, 129));
+    border: 2px solid rgb(34, 4, 34);
+    transform: scale(1.02);
+    border-radius: 9px;
+}
+
+
+.tail {
+    background: linear-gradient(rgb(223, 82, 82), rgb(241, 241, 67));
+    border: 1.5px solid #252525;
+    border-radius: 12px;
+}
+
+
+.food {
+    background: linear-gradient(#ff0000, #800080);
+    border: 1px solid #000000;
+    border-radius: 8px;
 }
