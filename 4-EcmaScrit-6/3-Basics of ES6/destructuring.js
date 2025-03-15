@@ -61,10 +61,18 @@ console.log(fourth); // 40
 
 // Nested Destructuring
 
-const numbers = [10, 20, 30, 40];
-const [, second, , fourth] = numbers;  // Skipping 1st and 3rd value
+const user = {
+    name: "Zaid",
+    address: {
+        city: "Karachi",
+        country: "Pakistan"
+    }
+};
 
-console.log(second); // 20
-console.log(fourth); // 40
+// Extract nested values
+const { address: { city, country } } = user;
+
+console.log(city);    // Karachi
+console.log(country); // Pakistan
 
 
