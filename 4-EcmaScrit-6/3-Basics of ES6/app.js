@@ -16,3 +16,13 @@ const counter = outerFunction(); // outerFunction runs and returns innerFunction
 counter(); // 1
 counter(); // 2
 counter(); // 3
+
+
+// Template literal 
+const names = "Zaid";
+console.log(`Hello, ${names}!`); // Output: Hello, Zaid!
+const message = `This is line 1
+This is line 2`;
+console.log(message);
+
+// Expression inside ${}
