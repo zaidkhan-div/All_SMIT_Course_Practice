@@ -91,53 +91,56 @@ let tableBody = document.getElementById("table-body");
 let btn = document.getElementById("submitButton");
 let amountElement = document.getElementById("amount");
 let products = [];
+var editIndex = -1;
+
 
 // For Updating Total Amount
 const updateTotalAmount = () => {
-  amountElement.innerHTML = "";
-  const totalAmount = products.reduce((initialValue, item) => {
-    return (initialValue += item.price);
-  }, 0);
-  amountElement.innerHTML = `Total Amount ${totalAmount}`;
+    amountElement.innerHTML = "";
+    const totalAmount = products.reduce((initialValue, item) => {
+        return (initialValue += item.price);
+    }, 0);
+    amountElement.innerHTML = `Total Amount ${totalAmount}`;
 };
 
 // Delete product
 const deleteProduct = (id) => {
-  const filteredProducts = products.filter((item) => {
-    return item.id !== id;
-  });
-  products = filteredProducts;
-  renderProducts();
-  updateTotalAmount();
+    const filteredProducts = products.filter((item) => {
+        return item.id !== id;
+    });
+    products = filteredProducts;
+    renderProducts();
+    updateTotalAmount();
 };
 
 function editProduct(index) {
-  const obj = products[index];
-  pNameElement.value = obj.name;
-  pPriceElement.value = obj.price;
+    const obj = products[index];
+    pNameElement.value = obj.name;
+    pPriceElement.value = obj.price;
+    btn.innerHTML = 'Update';
+    editIndex = index;
 }
 
 function renderProducts() {
-  // Reset
-  tableBody.innerHTML = "";
+    // Reset
+    tableBody.innerHTML = "";
 
-  // Rendering Table
-  for (let index = 0; index < products.length; index++) {
-    const element = products[index];
-    tableBody.innerHTML += `
+    // Rendering Table
+    for (let index = 0; index < products.length; index++) {
+        const element = products[index];
+        tableBody.innerHTML += `
       <tr>
           <th>${index + 1}</th>
           <td>${element.name}</td>
           <td>${element.price}</td>
           <td class="g-3">
-            <button class="btn btn-danger" onclick="deleteProduct(${
-              element.id
+            <button class="btn btn-danger" onclick="deleteProduct(${element.id
             })">Delete</button>
             <button class="btn btn-primary" onclick="editProduct(${index})">Edit</button>
           </td>
         </tr>
     `;
-  }
+    }
 }
 
 renderProducts();
@@ -145,14 +148,22 @@ updateTotalAmount();
 
 // Add Element
 btn.addEventListener("click", () => {
-  const obj = {
-    name: pNameElement.value,
-    price: Number(pPriceElement.value),
-    id: new Date().getTime(),
-  };
-  products.push(obj);
-  pNameElement.value = "";
-  pPriceElement.value = "";
-  renderProducts();
-  updateTotalAmount();
+    const obj = {
+        name: pNameElement.value,
+        price: Number(pPriceElement.value),
+        id: new Date().getTime(),
+    };
+    if (editIndex === -1) {
+        products.push(obj);
+    } else {
+        products[editIndex] = obj;
+        editIndex = -1
+        btn.innerHTML = 'Submit Form'
+    }
+    pNameElement.value = '';
+    pPriceElement.value = '';
+    pNameElement.value = "";
+    pPriceElement.value = "";
+    renderProducts();
+    updateTotalAmount();
 });
