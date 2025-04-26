@@ -72,3 +72,17 @@ let array = [
     },
   ];
   
+
+  const questionNumber = document.querySelector(".questionNumber");
+const question = document.querySelector(".question");
+const option1 = document.querySelector(".option1");
+const option2 = document.querySelector(".option2");
+const option3 = document.querySelector(".option3");
+const option4 = document.querySelector(".option4");
+const optionOneText = document.querySelector(".optionOneText1");
+const optionTwoText = document.querySelector(".optionOneText2");
+const optionThreeText = document.querySelector(".optionOneText3");
+const optionFourText = document.querySelector(".optionOneText4");
+
+let index = 0;
+let score = 0;
