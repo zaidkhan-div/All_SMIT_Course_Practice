@@ -86,3 +86,78 @@ const optionFourText = document.querySelector(".optionOneText4");
 
 let index = 0;
 let score = 0;
+
+const renderMCQS = () => {
+    if (index === array.length) {
+      alert(`MCQs Completed Your Score is ${score}`);
+      index = 0;
+      score = 0;
+      restartGame();
+    } else {
+      const obj = array[index];
+      questionNumber.innerHTML = `${index + 1} to ${array.length}`;
+      question.innerHTML = `${obj.question}`;
+      optionOneText.innerHTML = `${obj.options[0]}`;
+      optionTwoText.innerHTML = `${obj.options[1]}`;
+      optionThreeText.innerHTML = `${obj.options[2]}`;
+      optionFourText.innerHTML = `${obj.options[3]}`;
+    }
+  };
+  
+  renderMCQS();
+  
+  const resetButtons = () => {
+    option1.checked = false;
+    option2.checked = false;
+    option3.checked = false;
+    option4.checked = false;
+  };
+  
+  const nextQuestion = () => {
+    const currentObj = array[index];
+    if (
+      option1.checked === false &&
+      option2.checked === false &&
+      option3.checked === false &&
+      option4.checked === false
+    ) {
+      alert("Please select an option first");
+      return;
+    }
+  
+    // Answer Checking Option 1
+    if (option1.checked) {
+      if (optionOneText.innerHTML === currentObj.answer) {
+        score++;
+      }
+    }
+  
+    // Answer Checking Option 2
+    if (option2.checked) {
+      if (optionTwoText.innerHTML === currentObj.answer) {
+        score++;
+      }
+    }
+  
+    // Answer Checking Option 3
+    if (option3.checked) {
+      if (optionThreeText.innerHTML === currentObj.answer) {
+        score++;
+      }
+    }
+  
+    // Answer Checking Option 4
+    if (option4.checked) {
+      if (optionFourText.innerHTML === currentObj.answer) {
+        score++;
+      }
+    }
+  
+    index++;
+    renderMCQS();
+    resetButtons();
+  };
+  
+  function restartGame() {
+    renderMCQS();
+  }
