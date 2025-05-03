@@ -1,6 +1,7 @@
 let users = JSON.parse(localStorage.getItem('User')) || [];
 
-var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/; // regex
 
 let signup_name = document.getElementById("signup-name");
 let signup_email = document.getElementById("signup-email");
@@ -17,13 +18,18 @@ signup_btn.addEventListener("click", function signup() {
     throw new Error("Email Validation Error");
   }
 
+  let randomId = new Date().getTime();
+
+
   let obj = {
+    id: randomId,
     name: name,
     email: email,
     password: password,
   };
-  users.push(obj);
-  localStorage.setItem("User", JSON.stringify(users));
+
+  users.push(obj);             ///  array of user
+  localStorage.setItem("User", JSON.stringify(users)); // User is key , value
 });
 console.log(users);
 
@@ -32,6 +38,6 @@ let signin_email = document.getElementById('signin-email');
 let signin_password = document.getElementById('signin-password');
 let signin_btn = document.getElementById('signin-btn');
 
-signin_btn.addEventListener('click',function signin(){
-    
+signin_btn.addEventListener('click', function signin() {
+
 })
