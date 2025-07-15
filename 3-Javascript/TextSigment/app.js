@@ -4,7 +4,10 @@ let string = 'Zaid';
 console.log(string.slice(0, 1));
 console.log(string.charAt(0));
 
-var lastChar = name.charAt(name.length - 1);
+let names = 'Zaidkhan Student';
+
+var lastChar = names.charAt(1);
+console.log(lastChar)
 let text = 'This is Finding an Alert!'
 // The following code cycles through a string looking for an exclamation point. If the
 // character is found, an alert displays.
@@ -18,9 +21,9 @@ for (var i = 0; i < text.length; i++) {
 }
 var profit = "200" - "150";
 console.log(profit);// sometime javascript Undrstadn strings to numbers when Arthimatic comes
-// When strings appear in th e Math Expression
+// When strings appear in the Math Expression
 var result = "200" + 150;
-console.log(result);
+console.log(result, "Result");
 
 
 // convert String to Numbers
