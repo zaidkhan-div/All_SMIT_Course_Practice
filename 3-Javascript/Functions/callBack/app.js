@@ -24,6 +24,7 @@ x(function y() {
 // Scope Demo with Event listeners 
 
 // Garbage Collection & removeEventListeners 
+// eventListeners consumes soo much memory that's why we need to remove EventListeners from the dom
 
 
 // now i wanna how many times the button is clicked creating a global variable and then inside callBack count++ which is not good
