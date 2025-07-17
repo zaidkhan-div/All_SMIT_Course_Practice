@@ -28,7 +28,8 @@ console.log(numsOutput);
 
 let maxNum = nums.reduce((prev, next) => {
     // console.log("prev:", prev, "next:", next);
-
+    // return next
+    
     // return next > prev ? next : prev // maxValue
     // return next < prev ? next : prev // minValue
 
@@ -37,15 +38,14 @@ let maxNum = nums.reduce((prev, next) => {
     // }
     // else return prev // maxValue
 
-    if (next < prev) {
-        return next
-    }
-    else return prev
+    // if (prev > next) {
+    //     return next
+    // }
+    // else return prev
 
-}, 9);
+},);
 
 console.log(maxNum, "MaxNum");
-// prev: 0 next: 1
 // prev: 1 next: 24
 // prev: 24 next: 5
 // prev: 5 next: 5
@@ -54,4 +54,4 @@ console.log(maxNum, "MaxNum");
 // prev: 5 next: 6
 // prev: 6 next: 9
 // prev: 9 next: 6
-// next 6
+// 6 MaxNum
