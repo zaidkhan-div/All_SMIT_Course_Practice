@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ChildComponent, { Child, FromParent } from './ChildComponent';
 
 const ParentComponent = () => {
@@ -18,12 +18,16 @@ export default ParentComponent;
 
 
 export const Parent = () => {
-    const handleData = (dataFromChild) => {
-        console.log("Data received from child:", dataFromChild);
-    }
+    const [dataFromChild, setDataFromChild] = useState("");
+    // const handleData = (dataFromChild) => {
+    //     console.log("Data received from child:", dataFromChild);
+    // }
+
     return (
         <>
-            <Child sendDataToPrent={handleData} />
+            {/* <Child sendDataToPrent={handleData} /> */}
+            <p>Received data from child: {dataFromChild}</p>
+            <Child sendDataToPrent={setDataFromChild} />
         </>
     )
 }
@@ -31,4 +35,25 @@ export const Parent = () => {
 
 export const ParentToChild = () => {
     return <FromParent data="Data to child" />
+}
+
+export const Increment = () => {
+    const [count, setCount] = useState(0);
+
+    const handleChange = () => {
+        setCount(count + 1)
+    }
+    useEffect(() => {
+        console.log('Mount');
+        return () => {
+            console.log('UnMount')
+        }
+    }, [])
+
+    return (
+        <>
+            <h1>{count}</h1>
+            <button onClick={handleChange}>Click Me</button>
+        </>
+    )
 }
