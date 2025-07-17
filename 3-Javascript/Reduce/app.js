@@ -1,3 +1,4 @@
+// .reeuce() = reduce the element of an array to a single value
 const employees = [
     { name: "Ali", age: 25, salary: 40000 },
     { name: "Sara", age: 28, salary: 45000 },
@@ -24,3 +25,33 @@ let numsOutput = nums.reduce((acc, curr) => {
 }, 0);
 
 console.log(numsOutput);
+
+let maxNum = nums.reduce((prev, next) => {
+    // console.log("prev:", prev, "next:", next);
+
+    // return next > prev ? next : prev // maxValue
+    // return next < prev ? next : prev // minValue
+
+    // if (next > prev) {
+    //     return next
+    // }
+    // else return prev // maxValue
+
+    if (next < prev) {
+        return next
+    }
+    else return prev
+
+}, 9);
+
+console.log(maxNum, "MaxNum");
+// prev: 0 next: 1
+// prev: 1 next: 24
+// prev: 24 next: 5
+// prev: 5 next: 5
+// prev: 5 next: 13
+// prev: 13 next: 5
+// prev: 5 next: 6
+// prev: 6 next: 9
+// prev: 9 next: 6
+// next 6
