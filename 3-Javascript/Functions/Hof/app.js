@@ -42,6 +42,14 @@ const calculate = function (radius, logic) {
     return output;
 }
 
-console.log(calculate(radius,diameter))
+console.log(calculate(radius, diameter))
 
 // Array.prototype. to make anything in array access way
+
+
+let arr = [24, 6, 2, 2, 5, 4];
+
+let output = arr.reduce((acc, curent) => {
+    if
+}, 0);
+console.log(output)
