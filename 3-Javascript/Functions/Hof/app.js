@@ -14,7 +14,7 @@
 // what is the Difference between Higher Order Function and CallBack ?
 
 // Higher-Order Function (HOF)	A function that accepts another function as an argument or returns one.
-// Callback Function	A function that is passed to another function to be called later.
+// Callback Function, A function that is passed to another function to be called later.
 
 function x() {
     console.log('This is CallBack Function')
