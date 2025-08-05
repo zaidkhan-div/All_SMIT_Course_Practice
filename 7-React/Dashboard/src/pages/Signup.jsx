@@ -1,10 +1,26 @@
 import React from 'react'
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from "@/components/ui/button";
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
     const initialValues = {
         email: "",
         password: "",
@@ -12,9 +28,28 @@ const Signup = () => {
         confirmPassword: "",
     };
 
-    const navigate = useNavigate();
-    const formik = useFormik({});
-    
+    const signupSchema = Yup.object().shape({
+        name: Yup.string().required("Name is required"),
+        email: Yup.string().required("Email is required"),
+        password: Yup.string().min(6, "Password can not be < 6").required("Password is required"),
+        confirmPassword: Yup.string().required("Confirm password is required").oneOf([Yup.ref("password"), null], "Password must match")
+    });
+
+    const formik = useFormik({
+        initialValues: initialValues,
+        validationSchema: signupSchema,
+        onSubmit: async (values) => {
+            setLoading(true);
+            try {
+
+            } catch (error) {
+                toast(error.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+    });
+
     return (
         <div className="flex justify-center items-center h-screen">
             <Card className="w-full max-w-sm">
