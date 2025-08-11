@@ -128,11 +128,13 @@ const TaskList = () => {
                             <TableCell>{task.deadline}</TableCell>
                             <TableCell>{task.status}</TableCell>
                             <TableCell className="flex gap-3">
-                                {<Check
-                                    size={16}
-                                    className="cursor-pointer text-green-500"
-                                    onClick={() => markTaskComplete(task.id)}
-                                />}
+                                {task.status === "pending" ?
+                                    "X" : <Check
+                                        size={16}
+                                        className="cursor-pointer text-green-500"
+                                        onClick={() => markTaskComplete(task.id)}
+                                    />
+                                }
                                 <Edit
                                     size={16}
                                     className="cursor-pointer"

@@ -17,7 +17,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import * as Yup from "yup";
 import { db } from "../firbase.js";
-import { Textarea } from "@/components/ui/textarea"; // if you have textarea
+import { Textarea } from "@/components/ui/textarea"; 
 
 const AddTasks = () => {
     const [loading, setLoading] = useState(false);

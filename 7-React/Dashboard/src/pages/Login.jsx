@@ -66,9 +66,9 @@ const Login = () => {
         <div className="flex justify-center items-center h-screen">
             <Card className="w-full max-w-sm">
                 <CardHeader>
-                    <CardTitle>Create an account</CardTitle>
+                    <CardTitle>Sign in</CardTitle>
                     <CardDescription>
-                        Enter your details below to create your account
+                        Enter your details below to login in
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
