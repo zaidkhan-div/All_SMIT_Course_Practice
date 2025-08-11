@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-// import ForgotPassword from "./pages/ForgotPassword";
-// import AddStudentComp from "./pages/AddStudentComp.jsx/index.js";
-// import AddTrainer from "./pages/AddTrainer.jsx";
+import ForgotPassword from "./pages/ForgotPassword";
+import AddStudentComp from "./pages/Dashbaord.jsx";
+import AddTrainer from "./pages/AddTrainer.jsx";
+import Dashbaord from "./pages/Dashbaord.jsx";
 // import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const Router = () => {
@@ -13,23 +14,20 @@ const Router = () => {
                 <Route path="/" element={<Login />} />
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
-                {/* <Route path="forgot-password" element={<ForgotPassword />} /> */}
-                {/* <Route
-                    path="add-student"
+                <Route path="forgotPassword" element={<ForgotPassword />} />
+                <Route path="dashbaord" element={<Dashbaord />} />
+                <Route
+                    path="addStudent"
                     element={
-                        <ProtectedRoute>
-                            <AddStudentComp />
-                        </ProtectedRoute>
+                        <AddStudentComp />
                     }
                 />
                 <Route
-                    path="add-trainer"
+                    path="addtrainer"
                     element={
-                        <ProtectedRoute>
-                            <AddTrainer />
-                        </ProtectedRoute>
+                        <AddTrainer />
                     }
-                /> */}
+                />
             </Routes>
         </BrowserRouter>
     );

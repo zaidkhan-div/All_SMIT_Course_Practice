@@ -9,7 +9,7 @@ import {
     CardHeader,
     CardTitle,
 } from "../components/ui/card"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Label } from '@radix-ui/react-label';
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -18,6 +18,7 @@ import { auth } from './../firbase'
 import { toast } from 'sonner';
 
 const Login = () => {
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
 
@@ -45,6 +46,8 @@ const Login = () => {
                     } else {
                         toast("Please verified your email to proceed further");
                     }
+                    navigate("/Dashbaord")
+
                 } else {
                     toast("Please create an account to proceed")
                 }
@@ -118,6 +121,11 @@ const Login = () => {
                         Already have an account?{" "}
                         <Link to="/signup" className="underline cursor-pointer">
                             Sign up
+                        </Link>
+                    </p>
+                    <p className="text-sm text-center">
+                        <Link to="/forgotPassword" className="underline cursor-pointer">
+                            Forgot Password
                         </Link>
                     </p>
                 </CardFooter>
