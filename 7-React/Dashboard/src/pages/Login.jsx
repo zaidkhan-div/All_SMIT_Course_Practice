@@ -33,17 +33,17 @@ const Login = () => {
         onSubmit: async (values) => {
             try {
                 setLoading(true)
-                const createUser = signInWithEmailAndPassword(
+                const createUser = await signInWithEmailAndPassword(
                     auth,
                     values.email,
                     values.password
                 )
                 if (createUser) {
-                    toast.success("Sigin Successfully");
+                    toast.success("Sing in Successfully!");
                 }
             } catch (error) {
+                toast.error(error.message);
                 setLoading(false);
-                toast(error.message);
             } finally {
                 setLoading(false)
             }
