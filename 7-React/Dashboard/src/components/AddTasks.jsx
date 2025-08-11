@@ -16,40 +16,43 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "sonner";
 import * as Yup from "yup";
-import { db } from "../firbase";
+import { db } from "../firbase.js";
+import { Textarea } from "@/components/ui/textarea"; // if you have textarea
 
-function AddTasks() {
+const AddTasks = () => {
     const [loading, setLoading] = useState(false);
+
     const initialValues = {
-        name: "",
-        email: "",
-        phone: "",
+        taskName: "",
+        description: "",
+        deadline: "",
     };
-    const addStudentSchema = Yup.object().shape({
-        name: Yup.string().required("Name is required"),
-        email: Yup.string().email("Invalid email").required("Email is required"),
-        phone: Yup.string()
-            .min(10, "Invalid Phone Number")
-            .required("Phone Number is Required"),
+
+    const taskSchema = Yup.object().shape({
+        taskName: Yup.string().required("Task name is required"),
+        description: Yup.string().required("Description is required"),
+        deadline: Yup.date()
+            .min(new Date(), "Deadline must be today or in the future")
+            .required("Deadline is required"),
     });
+
     const formik = useFormik({
-        initialValues: initialValues,
-        validationSchema: addStudentSchema,
+        initialValues,
+        validationSchema: taskSchema,
         onSubmit: async (values) => {
             setLoading(true);
             try {
-                const collectionRef = collection(db, "add-student");
+                const collectionRef = collection(db, "tasks");
                 const data = {
-                    name: values.name,
-                    email: values.email,
-                    phone: values.phone,
+                    taskName: values.taskName,
+                    description: values.description,
+                    deadline: values.deadline,
+                    status: "pending",
                     timestamp: serverTimestamp(),
                 };
-                const docRef = await addDoc(collectionRef, data);
-                if (docRef) {
-                    formik.resetForm();
-                    toast("Student record has been added!");
-                }
+                await addDoc(collectionRef, data);
+                formik.resetForm();
+                toast("Task has been added!");
             } catch (error) {
                 toast(error?.message);
             } finally {
@@ -57,67 +60,66 @@ function AddTasks() {
             }
         },
     });
+
     return (
         <Dialog>
             <form>
                 <DialogTrigger asChild>
-                    <Button variant="outline">Add Student</Button>
+                    <Button variant="outline">Add Task</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Student Profile</DialogTitle>
+                        <DialogTitle>Add New Task</DialogTitle>
                         <DialogDescription>
-                            Please insert student details below
+                            Please enter task details below
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4">
                         <div className="grid gap-3">
-                            <Label htmlFor="name">Name</Label>
+                            <Label htmlFor="taskName">Task Name</Label>
                             <Input
-                                id="name"
-                                name="name"
-                                value={formik.values.name}
+                                id="taskName"
+                                name="taskName"
+                                value={formik.values.taskName}
                                 onChange={formik.handleChange}
-                                placeholder="Enter Your Name"
+                                placeholder="Enter Task Name"
                             />
+                            {formik.errors.taskName && formik.touched.taskName && (
+                                <span className="text-red-500 text-[12px]">
+                                    {formik.errors.taskName}
+                                </span>
+                            )}
                         </div>
-                        {formik.errors.name && formik.touched.name && (
-                            <span className="text-red-500 text-[12px]">
-                                {formik.errors.name}
-                            </span>
-                        )}
                         <div className="grid gap-3">
-                            <Label htmlFor="email">Email</Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                name="email"
-                                value={formik.values.email}
+                            <Label htmlFor="description">Description</Label>
+                            <Textarea
+                                id="description"
+                                name="description"
+                                value={formik.values.description}
                                 onChange={formik.handleChange}
-                                placeholder="Enter your Email"
+                                placeholder="Enter Task Description"
                             />
+                            {formik.errors.description && formik.touched.description && (
+                                <span className="text-red-500 text-[12px]">
+                                    {formik.errors.description}
+                                </span>
+                            )}
                         </div>
-                        {formik.errors.email && formik.touched.email && (
-                            <span className="text-red-500 text-[12px]">
-                                {formik.errors.email}
-                            </span>
-                        )}
                         <div className="grid gap-3">
-                            <Label htmlFor="phone">Phone</Label>
+                            <Label htmlFor="deadline">Deadline</Label>
                             <Input
-                                id="phone"
-                                name="phone"
-                                type="telephone"
-                                value={formik.values.phone}
+                                id="deadline"
+                                name="deadline"
+                                type="date"
+                                value={formik.values.deadline}
                                 onChange={formik.handleChange}
-                                placeholder="Phone Number"
                             />
+                            {formik.errors.deadline && formik.touched.deadline && (
+                                <span className="text-red-500 text-[12px]">
+                                    {formik.errors.deadline}
+                                </span>
+                            )}
                         </div>
-                        {formik.errors.phone && formik.touched.phone && (
-                            <span className="text-red-500 text-[12px]">
-                                {formik.errors.phone}
-                            </span>
-                        )}
                     </div>
                     <DialogFooter>
                         <DialogClose asChild>
@@ -137,4 +139,5 @@ function AddTasks() {
         </Dialog>
     );
 }
+
 export default AddTasks;
