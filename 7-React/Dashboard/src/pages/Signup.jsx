@@ -16,6 +16,8 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from './../firbase'
 
 const Signup = () => {
     const [loading, setLoading] = useState(false);
@@ -41,11 +43,19 @@ const Signup = () => {
         onSubmit: async (values) => {
             setLoading(true);
             try {
-
+                const createUser = createUserWithEmailAndPassword(
+                    auth,
+                    values.email,
+                    values.password
+                )
+                if (createUser) {
+                    navigate("/");
+                }
             } catch (error) {
                 toast(error.message);
             } finally {
                 setLoading(false);
+                toast("User has been created succesfully");
             }
         }
     });

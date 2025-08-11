@@ -13,6 +13,9 @@ import { Link } from 'react-router-dom';
 import { Label } from '@radix-ui/react-label';
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from './../firbase'
+import { toast } from 'sonner';
 
 const Login = () => {
 
@@ -28,6 +31,22 @@ const Login = () => {
             password: Yup.string().required("Password is required")
         }),
         onSubmit: async (values) => {
+            try {
+                setLoading(true)
+                const createUser = signInWithEmailAndPassword(
+                    auth,
+                    values.email,
+                    values.password
+                )
+                if (createUser) {
+                    toast.success("Sigin Successfully");
+                }
+            } catch (error) {
+                setLoading(false);
+                toast(error.message);
+            } finally {
+                setLoading(false)
+            }
             console.log("Form Values", values);
         }
     })
