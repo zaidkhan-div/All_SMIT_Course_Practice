@@ -21,6 +21,7 @@ import { Textarea } from "@/components/ui/textarea"; // if you have textarea
 
 const AddTasks = () => {
     const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const initialValues = {
         taskName: "",
@@ -32,7 +33,7 @@ const AddTasks = () => {
         taskName: Yup.string().required("Task name is required"),
         description: Yup.string().required("Description is required"),
         deadline: Yup.date()
-            .min(new Date(), "Deadline must be today or in the future")
+            .min(new Date(), "Deadline must be in the future")
             .required("Deadline is required"),
     });
 
@@ -51,18 +52,18 @@ const AddTasks = () => {
                     timestamp: serverTimestamp(),
                 };
                 await addDoc(collectionRef, data);
-                formik.resetForm();
                 toast("Task has been added!");
             } catch (error) {
                 toast(error?.message);
             } finally {
+                formik.resetForm();
                 setLoading(false);
             }
         },
     });
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <form>
                 <DialogTrigger asChild>
                     <Button variant="outline">Add Task</Button>
@@ -123,11 +124,12 @@ const AddTasks = () => {
                     </div>
                     <DialogFooter>
                         <DialogClose asChild>
-                            <Button variant="outline">Cancel</Button>
+                            <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
                         </DialogClose>
                         <Button
                             onClick={() => {
                                 formik.submitForm();
+                                setOpen(false)
                             }}
                             disabled={loading}
                         >
