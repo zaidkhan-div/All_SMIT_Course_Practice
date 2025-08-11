@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import { Label } from '@radix-ui/react-label';
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { auth } from './../firbase'
 import { toast } from 'sonner';
 
@@ -31,21 +31,29 @@ const Login = () => {
             password: Yup.string().required("Password is required")
         }),
         onSubmit: async (values) => {
+            setLoading(true);
             try {
-                setLoading(true)
-                const createUser = await signInWithEmailAndPassword(
+                const loginUser = await signInWithEmailAndPassword(
                     auth,
                     values.email,
                     values.password
                 )
-                if (createUser) {
-                    toast.success("Sing in Successfully!");
+                if (loginUser) {
+                    if (loginUser?.user?.emailVerified) {
+                        toast.success("Login Succesfully");
+                        await sendEmailVerification(auth.currentUser);
+                    } else {
+                        toast("Please verified your email to proceed further");
+                    }
+                } else {
+                    toast("Please create an account to proceed")
                 }
             } catch (error) {
                 toast.error(error.message);
                 setLoading(false);
             } finally {
-                setLoading(false)
+                setLoading(false);
+                formik.resetForm();
             }
             console.log("Form Values", values);
         }
@@ -89,7 +97,8 @@ const Login = () => {
                                     type="password"
                                 />
                                 {formik.errors.password && formik.touched.password && (
-                                    <span className="text-red-500 text-[12px]">
+                                    <span className="text-red-500
+                                    text-[12px]">
                                         {formik.errors.password}
                                     </span>
                                 )}
@@ -100,7 +109,7 @@ const Login = () => {
                 <CardFooter className="flex-col gap-2">
                     <Button
                         disabled={loading}
-                        onClick={formik.submitForm}
+                        onClick={formik.handleSubmit}
                         className="w-full"
                     >
                         {loading ? "Creating Account..." : "Create Account"}
@@ -108,7 +117,7 @@ const Login = () => {
                     <p className="text-sm text-center">
                         Already have an account?{" "}
                         <Link to="/signup" className="underline cursor-pointer">
-                            Sign in
+                            Sign up
                         </Link>
                     </p>
                 </CardFooter>

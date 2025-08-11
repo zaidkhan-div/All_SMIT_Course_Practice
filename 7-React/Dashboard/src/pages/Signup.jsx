@@ -16,7 +16,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { auth } from './../firbase'
 
 const Signup = () => {
@@ -43,19 +43,22 @@ const Signup = () => {
         onSubmit: async (values) => {
             setLoading(true);
             try {
-                const createUser = createUserWithEmailAndPassword(
+                const createUser = await createUserWithEmailAndPassword(
                     auth,
                     values.email,
                     values.password
                 )
-                if (createUser) {
-                    navigate("/");
+                if (createUser.user) {
+                    await sendEmailVerification(auth.currentUser)
+                    toast.success("User has been created. Please Verified your Email through Spam Section in your Gmail Account"
+                    )
+                    navigate("/login");
                 }
             } catch (error) {
                 toast(error.message);
             } finally {
                 setLoading(false);
-                toast("User has been created succesfully");
+                formik.resetForm();
             }
         }
     });
