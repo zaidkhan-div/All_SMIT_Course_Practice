@@ -6,7 +6,7 @@ import { Toaster } from 'sonner'
 const App = () => {
   return (
     <>
-      <ThemeProvider defaultTheme='dark' storageKey='vit-ui-theme' >
+      <ThemeProvider defaultTheme='light' storageKey='vit-ui-theme' >
         <Router />
         <Toaster />
       </ThemeProvider>

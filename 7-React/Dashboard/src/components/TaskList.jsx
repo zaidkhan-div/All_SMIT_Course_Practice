@@ -23,8 +23,9 @@ import {
     onSnapshot,
     query,
     updateDoc,
+    where,
 } from "firebase/firestore";
-import { db } from "../firbase.js";
+import { auth, db } from "../firbase.js";
 import { useEffect, useState } from "react";
 import { Trash, Check, Edit } from "lucide-react";
 import { toast } from "sonner";
@@ -41,8 +42,9 @@ const TaskList = () => {
     });
 
     useEffect(() => {
+        const currentUser = auth.currentUser;
         const collectionRef = collection(db, "tasks");
-        const q = query(collectionRef);
+        const q = query(collectionRef, where("userId", "==", currentUser.uid));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             const data = [];
             querySnapshot.forEach((docSnap) => {
@@ -127,14 +129,12 @@ const TaskList = () => {
                             <TableCell>{task.description}</TableCell>
                             <TableCell>{task.deadline}</TableCell>
                             <TableCell>{task.status}</TableCell>
-                            <TableCell className="flex gap-3">
-                                {task.status === "pending" ?
-                                    "X" : <Check
-                                        size={16}
-                                        className="cursor-pointer text-green-500"
-                                        onClick={() => markTaskComplete(task.id)}
-                                    />
-                                }
+                            <TableCell className="flex gap-3 cursor-pointer">
+                                {task.status === "pending" ? <Check
+                                    size={16}
+                                    className="cursor-pointer text-green-500"
+                                    onClick={() => markTaskComplete(task.id)}
+                                /> : "X"}
                                 <Edit
                                     size={16}
                                     className="cursor-pointer"

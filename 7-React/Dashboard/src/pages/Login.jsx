@@ -40,23 +40,22 @@ const Login = () => {
                     values.password
                 )
                 if (loginUser) {
-                    if (loginUser?.user?.emailVerified) {
-                        toast.success("Login Succesfully");
-                        await sendEmailVerification(auth.currentUser);
-                    } else {
-                        toast("Please verified your email to proceed further");
-                    }
-                    navigate("/Dashbaord")
-
+                    // if (loginUser?.user?.emailVerified) {
+                    formik.resetForm();
+                    toast.success("Login Succesfully");
+                    await sendEmailVerification(auth.currentUser);
+                    // } else {
+                    //     toast("Please verified your email to proceed further");
+                    // }
+                    navigate("/Dashbaord");
                 } else {
-                    toast("Please create an account to proceed")
+                    toast("Please create an account to proceed");
                 }
             } catch (error) {
                 toast.error(error.message);
                 setLoading(false);
             } finally {
                 setLoading(false);
-                formik.resetForm();
             }
             console.log("Form Values", values);
         }
@@ -115,7 +114,7 @@ const Login = () => {
                         onClick={formik.handleSubmit}
                         className="w-full"
                     >
-                        {loading ? "Creating Account..." : "Create Account"}
+                        {loading ? "Sign-in..." : "Sign-in"}
                     </Button>
                     <p className="text-sm text-center">
                         Already have an account?{" "}

@@ -16,12 +16,11 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "sonner";
 import * as Yup from "yup";
-import { db } from "../firbase.js";
-import { Textarea } from "@/components/ui/textarea"; 
+import { auth, db } from "../firbase.js";
+import { Textarea } from "@/components/ui/textarea";
 
 const AddTasks = () => {
     const [loading, setLoading] = useState(false);
-    const [open, setOpen] = useState(false);
 
     const initialValues = {
         taskName: "",
@@ -50,6 +49,7 @@ const AddTasks = () => {
                     deadline: values.deadline,
                     status: "pending",
                     timestamp: serverTimestamp(),
+                    userId: auth.currentUser.uid
                 };
                 await addDoc(collectionRef, data);
                 toast("Task has been added!");
@@ -63,7 +63,7 @@ const AddTasks = () => {
     });
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog>
             <form>
                 <DialogTrigger asChild>
                     <Button variant="outline">Add Task</Button>
@@ -124,12 +124,11 @@ const AddTasks = () => {
                     </div>
                     <DialogFooter>
                         <DialogClose asChild>
-                            <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+                            <Button variant="outline">Cancel</Button>
                         </DialogClose>
                         <Button
                             onClick={() => {
                                 formik.submitForm();
-                                setOpen(false)
                             }}
                             disabled={loading}
                         >
