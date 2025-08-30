@@ -17,5 +17,10 @@ app.use(bodyParser.json());
 // Routes Middleware
 app.use("/api", todoRoutes);
 
-app.listen(3000);
+// Method
+app.get("/", (req, res) => {
+    res.send("Hello world!")
+})
+
+app.listen(3005);
 console.log("Server Started");
